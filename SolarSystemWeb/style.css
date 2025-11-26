@@ -1,0 +1,914 @@
+/* ===== ESTILOS FUTURISTAS - SISTEMA SOLAR 3D ===== */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-glow: #00f3ff;
+  --secondary-glow: #0077ff;
+  --accent-glow: #00aaff;
+  --dark-space: #0a0a1a;
+  --deep-space: #15152b;
+  --cosmic-blue: #1a1a5e;
+  --nebula-blue: #1e2a5c;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background: #000;
+  font-family: 'Exo 2', 'Segoe UI', Arial, sans-serif;
+  color: #fff;
+}
+
+/* ===== ENCABEZADO ===== */
+#header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 15px 30px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(10, 10, 30, 0.8) 20%,
+    rgba(10, 10, 30, 0.9) 50%,
+    rgba(10, 10, 30, 0.8) 80%,
+    transparent 100%);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--primary-glow);
+  box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+  z-index: 100;
+  text-align: center;
+}
+
+#header h1 {
+  font-family: 'Orbitron', monospace;
+  font-size: 2.2em;
+  font-weight: 700;
+  background: linear-gradient(45deg, var(--primary-glow), var(--secondary-glow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+/* ===== PIE DE PÁGINA ===== */
+#footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 10px 25px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(10, 10, 30, 0.7) 30%,
+    rgba(10, 10, 30, 0.8) 100%);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--secondary-glow);
+  border-left: 1px solid var(--secondary-glow);
+  border-radius: 15px 0 0 0;
+  box-shadow: 0 0 20px rgba(0, 119, 255, 0.3);
+  z-index: 100;
+}
+
+#footer p {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1em;
+  color: var(--primary-glow);
+  font-weight: 500;
+  text-shadow: 0 0 10px rgba(0, 243, 255, 0.7);
+  margin: 0;
+}
+
+/* ===== BOTÓN RESET ===== */
+#reset-view-btn {
+  position: absolute;
+  top: 100px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 100;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow));
+  border: none;
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.6),
+              inset 0 0 10px rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse 2s infinite;
+}
+
+#reset-view-btn:hover {
+  transform: scale(1.15) rotate(15deg);
+  box-shadow: 0 0 30px rgba(0, 243, 255, 0.8),
+              inset 0 0 15px rgba(255, 255, 255, 0.5);
+  animation: none;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* ===== PANEL PRINCIPAL ===== */
+.panel {
+  position: absolute;
+  top: 50%;
+  left: 30px;
+  transform: translateY(-50%);
+  width: 380px;
+  background: linear-gradient(145deg,
+    rgba(10, 10, 30, 0.95) 0%,
+    rgba(26, 26, 94, 0.9) 50%,
+    rgba(10, 10, 30, 0.95) 100%);
+  padding: 25px;
+  color: #fff;
+  border-radius: 20px;
+  z-index: 50;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(0, 243, 255, 0.3);
+  box-shadow: 0 0 40px rgba(0, 243, 255, 0.2),
+              inset 0 0 20px rgba(0, 243, 255, 0.1);
+  max-height: 80vh;
+  overflow: hidden;
+  font-family: 'Exo 2', sans-serif;
+}
+
+.panel::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg,
+    var(--primary-glow),
+    var(--secondary-glow),
+    var(--accent-glow),
+    var(--primary-glow));
+  border-radius: 22px;
+  z-index: -1;
+  animation: borderGlow 3s linear infinite;
+  background-size: 400% 400%;
+}
+
+@keyframes borderGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ===== ENCABEZADO DEL PANEL ===== */
+.panel-header {
+  text-align: center;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(0, 243, 255, 0.3);
+}
+
+#panel-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.8em;
+  font-weight: 700;
+  color: var(--primary-glow);
+  text-shadow: 0 0 15px rgba(0, 243, 255, 0.7);
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.panel-image {
+  width: 100%;
+  height: 180px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 243, 255, 0.2);
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* Estilos para imagen clickeable en enciclopedia */
+.panel-image.structure-clickable {
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.panel-image.structure-clickable:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 25px rgba(0, 243, 255, 0.5);
+}
+
+.structure-img {
+  width: 100%;
+  height: 150px;
+  margin-bottom: 20px;
+  object-fit: contain;
+}
+
+/* ===== BOTONES CON EFECTO GLOW ===== */
+.panel-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.glow-btn {
+  width: 100%;
+  padding: 16px;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1.1em;
+  font-weight: 600;
+  background: linear-gradient(135deg,
+    rgba(0, 243, 255, 0.1) 0%,
+    rgba(0, 119, 255, 0.2) 100%);
+  color: #fff;
+  border: 1px solid rgba(0, 243, 255, 0.3);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent);
+  transition: left 0.5s;
+}
+
+.glow-btn:hover {
+  background: linear-gradient(135deg,
+    rgba(0, 243, 255, 0.2) 0%,
+    rgba(0, 119, 255, 0.3) 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(0, 243, 255, 0.4);
+  border-color: var(--primary-glow);
+}
+
+.glow-btn:hover::before {
+  left: 100%;
+}
+
+.return-btn {
+  background: linear-gradient(135deg,
+    rgba(0, 170, 255, 0.1) 0%,
+    rgba(0, 119, 255, 0.2) 100%);
+  border-color: rgba(0, 170, 255, 0.3);
+}
+
+.return-btn:hover {
+  background: linear-gradient(135deg,
+    rgba(0, 170, 255, 0.2) 0%,
+    rgba(0, 119, 255, 0.3) 100%);
+  box-shadow: 0 5px 20px rgba(0, 170, 255, 0.4);
+  border-color: var(--accent-glow);
+}
+
+/* ===== SECCIONES DE CONTENIDO ===== */
+.content-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.scrollable-content {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 243, 255, 0.2);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.scrollable-content h3 {
+  font-family: 'Orbitron', monospace;
+  color: var(--primary-glow);
+  margin-bottom: 15px;
+  font-size: 1.3em;
+  text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+}
+
+.scrollable-content p {
+  line-height: 1.7;
+  margin: 0;
+  color: #e0e0ff;
+  font-size: 1em;
+  text-align: justify;
+  white-space: pre-wrap; 
+}
+
+.btn-back {
+  padding: 14px;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1em;
+  font-weight: 600;
+  background: linear-gradient(135deg,
+    rgba(0, 119, 255, 0.2) 0%,
+    rgba(0, 170, 255, 0.3) 100%);
+  color: #fff;
+  border: 1px solid rgba(0, 243, 255, 0.3);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+  background: linear-gradient(135deg,
+    rgba(0, 119, 255, 0.3) 0%,
+    rgba(0, 170, 255, 0.4) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 3px 15px rgba(0, 243, 255, 0.3);
+}
+
+/* ===== LISTA DE PLANETAS ===== */
+.planets-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.planet-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.planet-option:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+  border-color: var(--primary-glow);
+  box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+}
+
+.planet-mini {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.sun-mini {
+  background: radial-gradient(circle, #ffdd00, #ff6600);
+  box-shadow: 0 0 12px #ffdd00;
+}
+
+.planet-option span {
+  font-weight: 600;
+  color: #e0e0ff;
+}
+
+/* ===== ETIQUETAS DE PLANETAS EN 3D ===== */
+.planet-label {
+  color: var(--primary-glow);
+  font-size: 14px;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(0, 243, 255, 0.9);
+  background: rgba(0, 0, 0, 0.8);
+  padding: 8px 16px;
+  border-radius: 20px;
+  pointer-events: auto;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 243, 255, 0.3);
+  white-space: nowrap;
+  font-family: 'Exo 2', sans-serif;
+  backdrop-filter: blur(5px);
+  position: relative;
+  z-index: 10;
+}
+
+.planet-label:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: scale(1.2);
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.6);
+  border-color: var(--primary-glow);
+}
+
+.sun-label {
+  color: #ffff00;
+  text-shadow: 0 0 10px rgba(255, 255, 0, 0.9);
+  font-size: 16px;
+  border: 1px solid rgba(255, 255, 0, 0.3);
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.sun-label:hover {
+  box-shadow: 0 0 20px rgba(255, 255, 0, 0.6);
+}
+
+/* ===== SCROLLBAR PERSONALIZADO ===== */
+.scrollable-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollable-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--primary-glow), var(--secondary-glow));
+  border-radius: 4px;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(var(--secondary-glow), var(--primary-glow));
+}
+
+/* ===== EFECTOS DE FONDO ESPACIAL ===== */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ===== ANIMACIONES ===== */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.floating {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .panel {
+    width: 320px;
+    left: 20px;
+    padding: 20px;
+  }
+
+  #header h1 {
+    font-size: 1.8em;
+  }
+
+  .planets-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== GARANTIZAR VISIBILIDAD DE ETIQUETAS ===== */
+.planet-label {
+  z-index: 1000 !important;
+  position: relative !important;
+  transform-style: preserve-3d !important;
+}
+
+/* ===== ESTILOS CORREGIDOS PARA ETIQUETAS CSS2D ===== */
+.planet-label {
+  font-family: 'Exo 2', sans-serif;
+  color: #00f3ff;
+  font-size: 14px;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(0, 243, 255, 0.9);
+  background: rgba(0, 0, 0, 0.85);
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 243, 255, 0.4);
+  backdrop-filter: blur(5px);
+  white-space: nowrap;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+  
+  /* ESTILOS CRÍTICOS PARA EVITAR EXPANSIÓN */
+  display: inline-block !important;
+  width: auto !important;
+  max-width: none !important;
+  position: absolute !important;
+  transform: none !important;
+  left: auto !important;
+  top: auto !important;
+}
+
+.planet-label:hover {
+  background: rgba(0, 0, 0, 0.95);
+  transform: scale(1.15) !important;
+  box-shadow: 0 0 25px rgba(0, 243, 255, 0.6);
+  border-color: #00f3ff;
+}
+
+.sun-label {
+  color: #ffff00;
+  text-shadow: 0 0 10px rgba(255, 255, 0, 0.9);
+  border: 1px solid rgba(255, 255, 0, 0.4);
+  background: rgba(0, 0, 0, 0.9);
+  font-size: 16px;
+  box-shadow: 0 0 15px rgba(255, 255, 0, 0.3);
+}
+
+.sun-label:hover {
+  box-shadow: 0 0 25px rgba(255, 255, 0, 0.6);
+  border-color: #ffff00;
+}
+
+/* Contenedor del CSS2DRenderer */
+canvas + div {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none !important;
+  z-index: 40 !important;
+  overflow: visible !important;
+}
+
+canvas + div * {
+  pointer-events: auto !important;
+  transform-style: preserve-3d !important;
+}
+
+canvas + div > div {
+    /* Esto elimina el movimiento de "persecución" (lag), 
+        asegurando que el cambio de posición sea instantáneo.
+    */
+    transition: none !important;
+}
+
+/* Opcional, pero recomendado: Asegúrate de que los estilos 
+    básicos de la etiqueta sigan presentes, por si acaso.
+*/
+.planet-label-style { /* Puedes usar una clase que ya tengas para las etiquetas */
+    /* ... otros estilos ... */
+    transition: none !important; /* Si tienes una clase de estilo existente, añádelo aquí */
+}
+
+/* Animación corregida */
+.floating {
+  animation: labelFloat 3s ease-in-out infinite;
+}
+
+@keyframes labelFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ===== SCROLLBAR PERSONALIZADO ===== */
+.scrollable-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollable-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--primary-glow), var(--secondary-glow));
+  border-radius: 4px;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(var(--secondary-glow), var(--primary-glow));
+}
+
+/* ===== EFECTOS DE FONDO ESPACIAL ===== */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ===== ANIMACIONES ===== */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.floating {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .panel {
+    width: 320px;
+    left: 20px;
+    padding: 20px;
+  }
+
+  #header h1 {
+    font-size: 1.8em;
+  }
+
+  .planets-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Nuevo: Anular la animación de seguimiento (lag) de las etiquetas */
+.planet-label {
+    /* Esto asegura que los cambios de posición (transform) 
+     que aplica el renderizador 3D sean instantáneos.
+    */
+    transition: none !important;
+}
+
+.structure-clickable {
+    cursor: pointer;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.structure-clickable:hover {
+    transform: scale(1.03);
+}
+
+#structure-content .scrollable-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#structure-img {
+    width: 100%;
+    max-width: 300px;
+    margin-top: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(255,255,255,0.2);
+    display: block;
+}
+
+/* ===== VENTANA DE IMAGEN AMPLIADA - ESTILOS CORREGIDOS ===== */
+.image-viewer {
+    position: fixed;
+    left: 450px; /* Espacio después del panel */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 500px;
+    height: 600px;
+    background: linear-gradient(145deg,
+        rgba(10, 10, 30, 0.98) 0%,
+        rgba(26, 26, 94, 0.95) 50%,
+        rgba(10, 10, 30, 0.98) 100%);
+    border: 2px solid rgba(0, 243, 255, 0.4);
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(0, 243, 255, 0.3),
+                inset 0 0 20px rgba(0, 243, 255, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    backdrop-filter: blur(15px);
+}
+
+.image-viewer::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg,
+        var(--primary-glow),
+        var(--secondary-glow),
+        var(--accent-glow),
+        var(--primary-glow));
+    border-radius: 22px;
+    z-index: -1;
+    animation: borderGlow 3s linear infinite;
+    background-size: 400% 400%;
+}
+
+.image-viewer.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.viewer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--primary-glow);
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    font-family: 'Orbitron', monospace;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.7);
+}
+
+#viewer-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+#close-viewer {
+    background: transparent;
+    border: none;
+    color: var(--primary-glow);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#close-viewer:hover {
+    background: rgba(0, 243, 255, 0.2);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+}
+
+/* Estilos adicionales para mejorar la experiencia visual */
+.panel-image {
+    transition: all 0.3s ease;
+}
+
+.panel-image:hover {
+    box-shadow: 0 0 25px rgba(0, 243, 255, 0.4);
+}
+
+/* Efecto de brillo al pasar el mouse sobre imágenes clickeables */
+.panel-image.structure-clickable {
+    position: relative;
+}
+
+.panel-image.structure-clickable:hover::after {
+    content: '🔍 Click para ampliar';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--primary-glow);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    pointer-events: none;
+    z-index: 10;
+    border: 1px solid rgba(0, 243, 255, 0.4);
+    backdrop-filter: blur(5px);
+}
+
+/* Responsive para el visor de imágenes */
+@media (max-width: 1200px) {
+    .image-viewer {
+        left: 400px;
+        width: 450px;
+        height: 550px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .image-viewer {
+        left: 350px;
+        width: 400px;
+        height: 500px;
+    }
+}
+
+@media (max-width: 900px) {
+    .image-viewer {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        height: 70%;
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    .image-viewer {
+        width: 95%;
+        height: 60%;
+        padding: 15px;
+    }
+    
+    .panel-image.structure-clickable:hover {
+        transform: scale(1.01);
+    }
+    
+    .viewer-header {
+        font-size: 1.1em;
+        padding: 12px;
+    }
+    
+    .panel-image.structure-clickable:hover::after {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
+
+/* Asegurar que el visor esté siempre por encima del panel */
+.panel {
+  position: absolute;
+  top: 50%;
+  left: 30px;
+  transform: translateY(-50%);
+}
+
+
+.image-viewer {
+    z-index: 1000;
+}
+
+/* Corregir el tamaño de la imagen en estructura */
+#structure-img.structure-clickable {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    margin: 20px auto;
+    display: block;
+}
+
+/* FIX para pantallas 1366×768 sin afectar el diseño original */
+@media (max-height: 820px) {
+    .panel {
+        max-height: 85vh !important;
+    }
+    .scrollable-content {
+        max-height: 250px !important;
+    }
+}
+
+/* ===== ELIMINAR HEADER COMPLETAMENTE ===== */
+#header {
+    display: none !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+}
+/* ===== PANEL FULL ALTURA PARA PANTALLAS PEQUEÑAS ===== */
+.panel {
+    top: 0 !important;
+    transform: none !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto !important;
+    padding-bottom: 40px !important;
+}
